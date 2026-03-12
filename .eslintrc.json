@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "@rocketseat/eslint-config/node",
+    "prettier",
+    "plugin:vitest-globals/recommended"
+  ],
+  "env": {
+    "vitest-globals/env": true
+  },
+  "rules": {
+    "camelcase": "off",
+    "no-useless-constructor": "off"
+  }
+}
