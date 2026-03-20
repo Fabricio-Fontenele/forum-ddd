@@ -1,6 +1,5 @@
-import { beforeEach, expect, it, test } from 'vitest'
+import { beforeEach, expect, it, describe } from 'vitest'
 import { CreateQuestionUseCase } from './create-question'
-import { describe } from 'node:test'
 import { InMemoryQuestionsRepository } from '@/repositories/in-memory-questions-repository'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository

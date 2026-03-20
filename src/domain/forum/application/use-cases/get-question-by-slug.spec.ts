@@ -1,5 +1,4 @@
-import { beforeEach, expect, it, test } from 'vitest'
-import { describe } from 'node:test'
+import { beforeEach, expect, it, describe } from 'vitest'
 import { InMemoryQuestionsRepository } from '@/repositories/in-memory-questions-repository'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 import { makeQuestion } from '@/factories/make-question'

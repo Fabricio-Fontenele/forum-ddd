@@ -1,11 +1,8 @@
-import { beforeEach, expect, it, test } from 'vitest'
-import { describe } from 'node:test'
+import { beforeEach, expect, it, describe } from 'vitest'
 import { InMemoryQuestionsRepository } from '@/repositories/in-memory-questions-repository'
 import { EditQuestionUseCase } from './edit-question'
 import { makeQuestion } from '@/factories/make-question'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { title } from 'node:process'
-
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: EditQuestionUseCase
 
@@ -53,7 +50,7 @@ describe('Edit question', () => {
         questionId: newQuestion.id.toValue(),
         authorId: 'author-1',
         title: 'Pergunta teste',
-        content: 'Conteúdo test',
+        content: 'Conteúdo teste',
       })
     }).rejects.instanceOf(Error)
 

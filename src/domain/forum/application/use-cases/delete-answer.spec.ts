@@ -1,6 +1,4 @@
-import { beforeEach, expect, it, test } from 'vitest'
-import { describe } from 'node:test'
-
+import { beforeEach, expect, it, describe } from 'vitest'
 import { makeAnswer } from '@/factories/make-answer'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { DeleteAnswerUseCase } from './delete-answer'
