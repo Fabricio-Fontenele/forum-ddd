@@ -1,9 +1,6 @@
 import { beforeEach, expect, it, describe } from 'vitest'
 import { InMemoryQuestionsRepository } from '@/repositories/in-memory-questions-repository'
 import { makeQuestion } from '@/factories/make-question'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { ChooseQuestionBestAnswerUseCase } from './choose-question-best-answer'
-import { makeAnswer } from '@/factories/make-answer'
 import { InMemoryQuestionCommentsRepository } from '@/repositories/in-memory-question-comments-repository'
 import { CommentOnQuestionUseCase } from './comment-on-question'
 
