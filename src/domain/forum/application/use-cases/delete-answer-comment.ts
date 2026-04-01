@@ -1,3 +1,4 @@
+import { left, right, type Either } from '@/core/either'
 import { AnswerComment } from '../../enterprise/entities/answer-comment'
 import { AnswerCommentsRepository } from '../repositories/answer-comments-repository'
 
@@ -6,9 +7,7 @@ interface DeleteAnswerCommentUseCaseRequest {
   answerCommentId: string
 }
 
-interface DeleteAnswerCommentUseCaseResponse {
-  answerComment: AnswerComment
-}
+type DeleteAnswerCommentUseCaseResponse = Either<string, {}>
 
 export class DeleteAnswerCommentUseCase {
   constructor(private answerCommentsRepository: AnswerCommentsRepository) {}
@@ -21,17 +20,15 @@ export class DeleteAnswerCommentUseCase {
       await this.answerCommentsRepository.findById(answerCommentId)
 
     if (!answerComment) {
-      throw new Error('Answer comment not found')
+      return left('Answer comment not found')
     }
 
     if (answerComment.authorId.toString() !== authorId) {
-      throw new Error('You are not the author of this comment')
+      return left("not allowed to delete another user's comment")
     }
 
     await this.answerCommentsRepository.delete(answerComment)
 
-    return {
-      answerComment,
-    }
+    return right({})
   }
 }
