@@ -1,7 +1,6 @@
 import { beforeEach, expect, it, describe } from 'vitest'
 import { InMemoryQuestionsRepository } from '@/repositories/in-memory-questions-repository'
 import { makeQuestion } from '@/factories/make-question'
-import { Slug } from '../../enterprise/entities/value-objects/slug'
 import { FetchRecentQuestionsUseCase } from './fetch-recent-questions'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
@@ -24,11 +23,11 @@ describe('Fetch Recent Questions', () => {
       makeQuestion({ createdAt: new Date(2022, 0, 23) }),
     )
 
-    const { questions } = await sut.execute({
+    const result = await sut.execute({
       page: 1,
     })
 
-    expect(questions).toEqual([
+    expect(result.value?.questions).toEqual([
       expect.objectContaining({ createdAt: new Date(2022, 0, 23) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 20) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 18) }),
@@ -40,10 +39,10 @@ describe('Fetch Recent Questions', () => {
       await inMemoryQuestionsRepository.create(makeQuestion())
     }
 
-    const { questions } = await sut.execute({
+    const result = await sut.execute({
       page: 2,
     })
 
-    expect(questions).toHaveLength(2)
+    expect(result.value?.questions).toHaveLength(2)
   })
 })

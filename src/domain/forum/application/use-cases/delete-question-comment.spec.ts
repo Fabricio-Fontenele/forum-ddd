@@ -1,15 +1,17 @@
 import { beforeEach, expect, it, describe } from 'vitest'
 import { InMemoryQuestionCommentsRepository } from '@/repositories/in-memory-question-comments-repository'
-import  { DeleteQuestionCommentUseCase } from './delete-question-comment'
+import { DeleteQuestionCommentUseCase } from './delete-question-comment'
 import { makeQuestionComment } from '@/factories/make-question-comment'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
 let sut: DeleteQuestionCommentUseCase
 
 describe('Delete question comment', () => {
   beforeEach(() => {
-    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository()
+    inMemoryQuestionCommentsRepository =
+      new InMemoryQuestionCommentsRepository()
     sut = new DeleteQuestionCommentUseCase(inMemoryQuestionCommentsRepository)
   })
 
@@ -32,11 +34,12 @@ describe('Delete question comment', () => {
 
     await inMemoryQuestionCommentsRepository.create(questionComment)
 
-    await expect(() => {
-      return sut.execute({
-        questionCommentId: questionComment.id.toString(),
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      questionCommentId: questionComment.id.toString(),
+      authorId: 'author-2',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })
