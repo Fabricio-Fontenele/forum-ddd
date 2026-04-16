@@ -1,43 +1,39 @@
-import { type Either, left, right } from '@/core/either'
-import { NotAllowedError } from '@/domain/forum/application/use-cases/errors/not-allowed-error'
-import { ResourceNotFoundError } from '@/domain/forum/application/use-cases/errors/resource-not-found-error'
-import type { NotificationsRepository } from '../repository/notifications-repository'
-import type { Notification } from '../../enterprise/entities/notifications'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { Either, right } from '@/core/either'
+import { Notification } from '../../enterprise/entities/notification'
+import { NotificationsRepository } from '../repositories/notifications-repository'
 
-interface ReadNotificationUseCaseRequest {
+export interface SendNotificationUseCaseRequest {
   recipientId: string
-  notificationId: string
+  title: string
+  content: string
 }
 
-type ReadNotificationUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowedError,
+export type SendNotificationUseCaseResponse = Either<
+  null,
   {
     notification: Notification
   }
 >
 
-export class ReadNotificationUseCase {
+export class SendNotificationUseCase {
   constructor(private notificationsRepository: NotificationsRepository) {}
 
   async execute({
     recipientId,
-    notificationId,
-  }: ReadNotificationUseCaseRequest): Promise<ReadNotificationUseCaseResponse> {
-    const notification =
-      await this.notificationsRepository.findById(notificationId)
+    title,
+    content,
+  }: SendNotificationUseCaseRequest): Promise<SendNotificationUseCaseResponse> {
+    const notification = Notification.create({
+      recipientId: new UniqueEntityId(recipientId),
+      title,
+      content,
+    })
 
-    if (!notification) {
-      return left(new ResourceNotFoundError())
-    }
+    await this.notificationsRepository.create(notification)
 
-    if (recipientId !== notification.recipientId.toString()) {
-      return left(new NotAllowedError())
-    }
-
-    notification.read()
-
-    await this.notificationsRepository.save(notification)
-
-    return right({ notification })
+    return right({
+      notification,
+    })
   }
 }
