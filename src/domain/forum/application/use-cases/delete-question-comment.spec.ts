@@ -3,7 +3,7 @@ import { InMemoryQuestionCommentsRepository } from '@/repositories/in-memory-que
 import { DeleteQuestionCommentUseCase } from './delete-question-comment'
 import { makeQuestionComment } from '@/factories/make-question-comment'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from './errors/not-allowed-error'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
 let sut: DeleteQuestionCommentUseCase

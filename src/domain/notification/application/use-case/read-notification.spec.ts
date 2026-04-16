@@ -1,5 +1,5 @@
-import { NotAllowedError } from '@/domain/forum/application/use-cases/errors/not-allowed-error'
-import { ReadNotificationUseCase } from './send-notification'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
+import { ReadNotificationUseCase } from './read-notification'
 import { InMemoryNotificationsRepository } from '@/repositories/in-memory-notifications-repository'
 import { makeNotification } from '@/factories/make-notification'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'

@@ -3,7 +3,7 @@ import { makeAnswer } from '@/factories/make-answer'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { DeleteAnswerUseCase } from './delete-answer'
 import { InMemoryAnswersRepository } from '@/repositories/in-memory-answers-repository'
-import { NotAllowedError } from './errors/not-allowed-error'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { InMemoryAnswerAttachmentsRepository } from '@/repositories/in-memory-answer-attachments-repository'
 import { makeAnswerAttachment } from '@/factories/make-answer-attachments'
 
